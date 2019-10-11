@@ -1,0 +1,7 @@
+./file.php:1:function 
+./file.php:5:function foo is not
+./file.php:7:or the other function
+./file2.php:1:Function 
+./file2.php:3:with a capitol F Function
+./file3.php:1:function foo
+./file3.php:9:function

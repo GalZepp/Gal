@@ -1,0 +1,11 @@
+anewone.PHP
+another.php
+an.TXT
+file2.php
+file3.php
+file.php
+fouer.TXTsomething.PHP
+one.PhP
+outfile.txt
+three.txt
+two.txt
