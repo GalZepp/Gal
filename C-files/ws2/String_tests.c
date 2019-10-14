@@ -424,7 +424,7 @@ void TestStrstr()
 	{
 		++pass;
 	}
-	
+
 	if (Strstr(str3, needle) == strstr(str3, needle))
 	{
 		++pass;

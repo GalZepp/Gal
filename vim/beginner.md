@@ -67,6 +67,9 @@ Basics: wWbBeE
 	B - Backward to the next beginning of a WORD
 	e - Forward to the next end of word
 	E - Forward to the next end of WORD
+	0 - Move to the zeroth character of the line
+	$ - Move you to the last character of the line
+	^ - First non-blank character of the line
 
 Slightly less basic: fFtT
 All follow [(n)um]<verb><n(o)un> syntax
@@ -99,4 +102,8 @@ Copy/Paste
 	p - paste after cursor
 	P - paste before cursor
 
+Undoing your changes 
+===
+	u - Undo stuff
+	Ctrl-R - Reso stuff
 # vim: set syn=mkd :

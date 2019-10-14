@@ -16,35 +16,6 @@ static char *GetToEnd(char *str)
 	return str;
 }
 
-
-static int IsNeedle(const char *haystack, const char *needle)
-{
-	char *hay_runner = NULL;
-	char *needle_runner = NULL;
-	int diff = 0;
-
-	assert(haystack);
-	assert(needle);
-
-	hay_runner = (char *)haystack;
-	needle_runner = (char *)needle;
-
-	while (*needle_runner && *hay_runner)
-	{
-		diff = *hay_runner - *needle_runner;
-		if (diff)
-		{
-			return diff;
-		}
-
-		++hay_runner;
-		++needle_runner;
-	}
-
-	return 0;
-}
-
-
 /*************************************************************/
 
 size_t Strlen(const char *str)
@@ -214,23 +185,51 @@ char *Strncat(char *dest, const char *src, size_t n)
 	return dest;
 }
 
-char *Strstr(const char *haystack, const char *needle)
+/*************************************************************/
+
+static int IsNeedle(const char *haystack, const char *needle)
 {
 	assert(haystack);
 	assert(needle);
 
-	while (IsNeedle(haystack, needle))
+	while ((*needle == *haystack) && *needle)
 	{
+		++needle;
 		++haystack;
 	}
-	
-	if (!IsNeedle(haystack, needle))
+
+	if (*needle == '\0')
 	{
-		return (char *)haystack;
+		return 0;
+	}
+
+	return 1;
+}
+
+
+char *Strstr(const char *haystack, const char *needle)
+{
+	int no_match = 0;
+
+	assert(haystack);
+	assert(needle);
+
+	no_match = IsNeedle(haystack, needle);
+	while (no_match && *haystack)
+	{
+		++haystack;
+		no_match = IsNeedle(haystack, needle);
+	}
+
+	if (no_match)
+	{
+		return NULL;
 	}
 	
-	return NULL;
+	return (char *)haystack;
 }
+
+/*************************************************************/
 
 
 
