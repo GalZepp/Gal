@@ -38,7 +38,7 @@ int Strcmp(const char *str1, const char *str2)
 {
 	assert(str1);
 	assert(str2);
-
+/*
 	if (Strlen(str1) > Strlen(str2))
 	{
 		return 1;
@@ -48,7 +48,7 @@ int Strcmp(const char *str1, const char *str2)
 	{
 		return -1;
 	}
-
+*/
 	while ((*str1 == *str2) && *str1)
 	{
 		++str1;
