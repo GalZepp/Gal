@@ -99,15 +99,11 @@ void TestStrcmp()
 	{
 		++pass;
 	}
-	printf("system = %d\n", strcmp(str7, str8));
-	printf("mine = %d\n", Strcmp(str7, str8));
 
 	if (Strcmp(str8, str7) == strcmp(str8, str7))
 	{
 		++pass;
 	}
-	printf("system = %d\n", strcmp(str7, str8));
-	printf("mine = %d\n", Strcmp(str7, str8));
 
 	printf(YELLOW "Test to Strcmp() --> "RESET "%s" "(%d,%d)\n"RESET, GetColor(tests,pass),tests,pass);
 }
