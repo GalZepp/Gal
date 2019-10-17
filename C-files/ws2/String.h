@@ -18,6 +18,8 @@
 	char *Strdup(const char *str);
 
 	char *Strcat(char *dest, const char *src);
+	
+	size_t Strspn(const char *haystack, const char *needle);
 
 	char *Strncat(char *dest, const char *src, size_t n);
 

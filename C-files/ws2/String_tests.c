@@ -54,7 +54,7 @@ void TestStrlen()
 
 void TestStrcmp()
 {
-    int tests = 8;
+   int tests = 8;
 	int pass = 0;
 	char *str1 = "";
 	char *str2 = "abcdefd329942";
@@ -63,7 +63,7 @@ void TestStrcmp()
 	char *str5 = "abcd";
 	char *str6 = "abce";
 	char *str7 = "abc";
-	char *str8 = "abce";
+	char *str8 = "abcz";
 	
 	if (Strcmp(str1, str1) == strcmp(str1, str1))
 	{
@@ -99,12 +99,12 @@ void TestStrcmp()
 	{
 		++pass;
 	}
-	
+
 	if (Strcmp(str8, str7) == strcmp(str8, str7))
 	{
 		++pass;
 	}
-	
+
 	printf(YELLOW "Test to Strcmp() --> "RESET "%s" "(%d,%d)\n"RESET, GetColor(tests,pass),tests,pass);
 }
 
@@ -438,6 +438,66 @@ void TestStrstr()
 	printf(YELLOW "Test to Strstr() --> "RESET "%s" "(%d,%d)\n"RESET, GetColor(tests,pass),tests,pass);
 }
 
+
+void TestStrspn()
+{
+	int tests = 8;
+	int pass = 0;
+	char *needle = "abc";
+	char *needle1 = "abXXcdeZZh";
+	char *needle2 = "";
+	char *str = "something";
+	char *str1 = "";
+	char *str2 = "abcdef";
+	char *str3 = "eabc";
+	char *str4 = " abc";
+	char *str5 = "abcdefgh";
+	
+	if (Strspn(str, needle) == strspn(str, needle))
+	{
+		++pass;
+	}
+	
+	if (Strspn(str1, needle) == strspn(str1, needle))
+	{
+		++pass;
+	}
+	
+	if (Strspn(str2, needle) == strspn(str2, needle))
+	{
+		++pass;
+	}
+
+	if (Strspn(str3, needle) == strspn(str3, needle))
+	{
+		++pass;
+	}
+	
+	if (Strspn(str4, needle) == strspn(str4, needle))
+	{
+		++pass;
+	}
+	
+	if (Strspn(str5, needle1) == strspn(str5, needle1))
+	{
+		++pass;
+	}
+	
+	if (Strspn(str5, needle2) == strspn(str5, needle2))
+	{
+		++pass;
+	}
+
+	if (Strspn(str1, needle2) == strspn(str1, needle2))
+	{
+		++pass;
+	}
+
+	printf(YELLOW "Test to Strspn() --> "RESET "%s" "(%d,%d)\n"RESET, GetColor(tests,pass),tests,pass);
+}
+
+
+
 int main (int argc, char **argv)
 {
 	int test_num = 0;
@@ -479,6 +539,9 @@ int main (int argc, char **argv)
 		case 10:
 			TestStrstr();
 			break;
+		case 11:
+			TestStrspn();
+			break;
 		default:
 			TestStrlen();
 			TestStrcmp();
@@ -490,37 +553,10 @@ int main (int argc, char **argv)
 			TestStrcat();
 			TestStnrcat();
 			TestStrstr();
-	}
+			TestStrspn();
+		}
 	
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

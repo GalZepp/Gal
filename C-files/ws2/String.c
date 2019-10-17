@@ -39,6 +39,16 @@ int Strcmp(const char *str1, const char *str2)
 	assert(str1);
 	assert(str2);
 
+	if (Strlen(str1) > Strlen(str2))
+	{
+		return 1;
+	}
+	
+	if (Strlen(str2) > Strlen(str1))
+	{
+		return -1;
+	}
+
 	while ((*str1 == *str2) && *str1)
 	{
 		++str1;
@@ -185,7 +195,7 @@ char *Strncat(char *dest, const char *src, size_t n)
 	return dest;
 }
 
-/*************************************************************/
+/************************* Strstr ****************************/
 
 static int IsNeedle(const char *haystack, const char *needle)
 {
@@ -229,25 +239,47 @@ char *Strstr(const char *haystack, const char *needle)
 	return (char *)haystack;
 }
 
-/*************************************************************/
+/********************* End of Strstr *************************/
+
+/********************* Strspn ************************/
+
+size_t MatchChar(const char *haystack, const char *ch)
+{
+	char *hay_runner = NULL;
+
+	assert(haystack);
+
+	hay_runner = (char *)haystack;
+	while (*hay_runner)
+	{
+		if (*ch == *hay_runner)
+		{
+			return 1;
+		}
+		++hay_runner;
+	}
+
+	return 0;
+}
 
 
+size_t Strspn(const char *haystack, const char *needle)
+{
+	size_t num_of_matchs = 0;
+	char *hay_runner = NULL;
 
+	assert(haystack);
+	assert(needle);
 
+	hay_runner = (char *)haystack;
+	while (*hay_runner && MatchChar(needle, hay_runner))
+	{
+		++hay_runner;
+		++num_of_matchs;
+	}
 
+	return num_of_matchs;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/****************** end of Strspn *******************/
 
