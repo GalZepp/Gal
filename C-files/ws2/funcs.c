@@ -62,6 +62,12 @@ void IntSwap(int *num1, int *num2)
 	*num1 = *num1 - *num2;
 }
 
+
+void RmSpaces(char *str)
+{
+
+}
+
 int main (int argc, char **argv)
 {
 	int test_num = 0;
