@@ -30,8 +30,8 @@ int IsPalindrome(const char *str)
 	}
 
 	if (start >= end)
-	{
-		return 1;/* 1 means palindrome */
+	{/* means the string is palindrome */
+		return 1;
 	}
 
 	return 0;
