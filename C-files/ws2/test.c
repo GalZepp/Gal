@@ -93,25 +93,19 @@ void RmSpaces(char *str)
 		else
 		{
 			char_runner = space_runner; char_runner = FindChar(char_runner);
-		/*	
-			while (!IsSpace(char_runner) && *char_runner)
-			{
-				*space_runner = *char_runner;
-				*char_runner = ' ';
-				++space_runner;
-				++char_runner;
-			}*/
-			char_runner = WritingOnSpaces(char_runner);
+			space_runner = WritingOnSpaces(space_runner);
 		}
 	}
+	--char_runner;
+	--char_runner;
 
-	space_runner = '\0';
+	char_runner = '\0';
 }
 
 
 int main ()
 {
-	char str[50] = {' ', ' ', '\t', '1', '2', '3', ' ', '\t', 's', 'a', 'b', '\0'};
+	char str[50] = {' ', ' ', '\t', '1', '2', '3', ' ', '\t', 's', 'a', 'b', '\t', ' ', ' ', '1', '2', '3', ' ', ' ', '\0'};
 
 	printf("Before Rm = aaaa%s000\n", str);
 	RmSpaces(str);
