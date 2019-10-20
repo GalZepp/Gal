@@ -62,11 +62,29 @@ void IntSwap(int *num1, int *num2)
 	*num1 = *num1 - *num2;
 }
 
+/*********** RmSpaces - begin **********/
+
+int IsSpace(char *ch)
+{
+	assert(ch);
+
+	if (" " == ch && "\t" == ch)
+	{
+		return 1;	
+	}
+
+	return 0;
+}
+
 
 void RmSpaces(char *str)
 {
+	char *runner = NULL;
+	char *follwer = NULL;
 
+	assert(str);
 }
+	
 
 int main (int argc, char **argv)
 {
