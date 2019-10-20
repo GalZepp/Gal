@@ -44,7 +44,8 @@ char *FindChar(char *str)
 	return runner;
 }
 
-void RmSpacesBegining(char *str)
+
+char *WritingOnSpaces(char *str)
 {
 	char *first_char = NULL;
 
@@ -61,6 +62,8 @@ void RmSpacesBegining(char *str)
 	}
 
 	*str = *first_char;
+
+	return str;
 }
 
 
@@ -73,7 +76,7 @@ void RmSpaces(char *str)
 
 	if (IsSpace(str))
 	{
-		RmSpacesBegining(str);
+		str = WritingOnSpaces(str);
 	}
 	
 	space_runner = str;
@@ -90,14 +93,15 @@ void RmSpaces(char *str)
 		else
 		{
 			char_runner = space_runner; char_runner = FindChar(char_runner);
-			
+		/*	
 			while (!IsSpace(char_runner) && *char_runner)
 			{
 				*space_runner = *char_runner;
 				*char_runner = ' ';
 				++space_runner;
 				++char_runner;
-			}
+			}*/
+			char_runner = WritingOnSpaces(char_runner);
 		}
 	}
 
