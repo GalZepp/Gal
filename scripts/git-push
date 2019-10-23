@@ -6,3 +6,7 @@ git add .
 
 git commit -m "$message"
 git push
+
+sleep(5)
+
+clr
