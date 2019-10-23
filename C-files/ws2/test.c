@@ -36,6 +36,7 @@ char *FindChar(char *str)
 	assert(str);
 
 	runner = str;
+
 	while (IsSpace(runner))
 	{
 		++runner;
@@ -66,11 +67,21 @@ char *WritingOnSpaces(char *str)
 	return str;
 }
 
+char *FindLastSpace(char *str)
+{
+	assert(str);
+
+	while(IsSpace(str))
+	{
+		--str;
+	}
+
+	return str;
+}
 
 void RmSpaces(char *str)
 {
 	char *space_runner = NULL;
-	char *char_runner = NULL;
 
 	assert(str);
 
@@ -80,26 +91,22 @@ void RmSpaces(char *str)
 	}
 	
 	space_runner = str;
-	char_runner = str;
-	while (*char_runner && *space_runner)
+
+	while (*space_runner)
 	{
 		space_runner = FindSpace(space_runner); 
 		++space_runner;
 
-		if (!IsSpace(space_runner))
+		if (IsSpace(space_runner))
 		{
-			continue;
-		}
-		else
-		{
-			char_runner = space_runner; char_runner = FindChar(char_runner);
 			space_runner = WritingOnSpaces(space_runner);
 		}
 	}
-	--char_runner;
-	--char_runner;
+ 	--space_runner;
+	--space_runner;
+	space_runner = FindLastSpace(space_runner);
+	space_runner = '\0';
 
-	char_runner = '\0';
 }
 
 
