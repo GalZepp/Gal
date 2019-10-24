@@ -1,41 +1,54 @@
 #include <stdio.h>/* printf */
-#include <stdlib.h>/* malloc */
 #include <assert.h>/* assert */
-#include <string.h>/* memset */
 
+#define ALIVE 0
+#define DEAD 1 
+#define NEXT ((i + 1) % num_of_soldiers)
 
+size_t Josephus(size_t num_of_soldiers)
+{
+	size_t list_of_soldiers[num_of_soldiers];
+	size_t i = 0;
+	size_t alive = num_of_soldiers;
 
+	if (0 == num_of_soldiers)
+	{
+		return 0;
+	}
+
+	for (i = 0; i < num_of_soldiers; ++i)
+	{
+		list_of_soldiers[i] = ALIVE;	
+	}
+	
+	i = 0;
+	while (1 < alive)
+	{
+		i = i % num_of_soldiers;
+
+		if (ALIVE == list_of_soldiers[i])
+		{
+			while (DEAD == list_of_soldiers[NEXT])
+			{
+				++i;
+			}
+
+			list_of_soldiers[NEXT] = DEAD;
+			--alive;
+		}
+
+		++i;
+	}
+
+	for (i = 0; DEAD == list_of_soldiers[i]; ++i)
+	{}
+
+	return i + 1;
+}
 
 int main ()
 {	
-	int list[7] = {0};
-	int count = 7;
-	size_t i = 0;
-	int sword = 1;
-
-
-	while (count > 2)
-	{
-		while (0 != list[i % 7])		
-		{
-			++i;
-		}
-		if (sword)
-		{
-			list[i % 7] = 1;
-			--count;
-			sword = 0;
-		}
-		else
-		{
-			sword = 1;
-			++i;
-		}
-		printf("count = %d\n", count);
-		printf("sword = %d\n", sword);
-	}
-
-	printf("i = %lu\n", (i % 7));
+	printf("alive == %lu\n", Josephus(1)); 
 	
 	return 0;
 }
