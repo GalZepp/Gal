@@ -1,54 +1,29 @@
 #include <stdio.h>/* printf */
-#include <assert.h>/* assert */
+#include <string.h>/* strlen */
 
-#define ALIVE 0
-#define DEAD 1 
-#define NEXT ((i + 1) % num_of_soldiers)
-
-size_t Josephus(size_t num_of_soldiers)
+void foo(int a[], int size)
 {
-	size_t list_of_soldiers[num_of_soldiers];
-	size_t i = 0;
-	size_t alive = num_of_soldiers;
+	int i = 0;
 
-	if (0 == num_of_soldiers)
+	for (i = 0; i < size; ++i)
 	{
-		return 0;
+		a[i] = i * 2;
 	}
+	printf("sizeof(a) = %ld\n", sizeof(a));
 
-	for (i = 0; i < num_of_soldiers; ++i)
-	{
-		list_of_soldiers[i] = ALIVE;	
-	}
-	
-	i = 0;
-	while (1 < alive)
-	{
-		i = i % num_of_soldiers;
-
-		if (ALIVE == list_of_soldiers[i])
-		{
-			while (DEAD == list_of_soldiers[NEXT])
-			{
-				++i;
-			}
-
-			list_of_soldiers[NEXT] = DEAD;
-			--alive;
-		}
-
-		++i;
-	}
-
-	for (i = 0; DEAD == list_of_soldiers[i]; ++i)
-	{}
-
-	return i + 1;
 }
 
+
 int main ()
-{	
-	printf("alive == %lu\n", Josephus(1)); 
-	
+{
+	char str[] = "welcome";
+	int arr[10] = {0};
+	foo(arr, 10);
+
+	printf("sizeof(str) = %lu\n", sizeof(str));
+	printf("strlen(str) = %lu\n", strlen(str));
+	printf("sizeof(arr) = %lu\n", sizeof(arr));
+
+
 	return 0;
 }

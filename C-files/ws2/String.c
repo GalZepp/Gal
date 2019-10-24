@@ -158,16 +158,9 @@ char *Strcat(char *dest, const char *src)
 	assert(src);
 	
 	dest_runner = dest;
+
 	dest_runner = GetToEnd(dest_runner);
-
-	while (*src)
-	{
-		*dest_runner = *src;
-		++src;
-		++dest_runner;
-	}
-
-	dest_runner = '\0';
+	dest_runner = Strcpy(dest_runner, src);
 
 	return dest;
 }
