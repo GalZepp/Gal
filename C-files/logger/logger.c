@@ -132,15 +132,28 @@ static status_t WriteToHeader(const char *str, const char *file_name)
 	FILE *file_ptr = NULL;
 	FILE *tmp_ptr = NULL;
 	char string[INPUT_STRING_SIZE]; 
+	char *tmp_file = "tmp";
 
 	assert(str);
 	assert(file_name);
 
-	tmp_ptr = fopen("tmp", "a+");
+	tmp_ptr = fopen(tmp_file, "a+");
+	if (FAIL == CheckFilePtr(tmp_ptr))
+	{
+		return FAIL;
+	}
+
+	file_ptr = fopen(file_name, "r");
+	if (FAIL == CheckFilePtr(file_ptr))
+	{
+		fclose(tmp_ptr);
+		remove(tmp_file);
+		return FAIL;
+	}
+	
 	++str;
 	fputs(str, tmp_ptr);
 
-	file_ptr = fopen(file_name, "r");
 	while(fgets(string, INPUT_STRING_SIZE, file_ptr))
 	{
 		fputs(string, tmp_ptr);
@@ -254,7 +267,7 @@ int main (int argc, char **argv)
 	{
 		printf("No file name has been entered\n");
 	}
-	
+
 	return 0;
 }
 	
