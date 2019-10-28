@@ -21,10 +21,20 @@ typedef struct Operations
 	status_t (*action_func_t)(const char *str, const char *file_name);
 } operation_t;
 
-/******** Check for fopen/fclose failure *********/
+/******** Function checks *********/
 static status_t CheckFilePtr(FILE *file_ptr)
 {
 	if (!file_ptr)
+	{
+		return FAIL;
+	}
+
+	return SUCCESS;
+}
+
+static status_t CheckReturnValue(int ret)
+{
+	if (ret)
 	{
 		return FAIL;
 	}
@@ -45,9 +55,7 @@ static status_t AppendToFile(const char *str, const char *file_name)
 
 	fputs(str, file_ptr);
 
-	fclose(file_ptr);
-
-	return CheckFilePtr(file_ptr);
+	return CheckReturnValue(fclose(file_ptr));
 }
 
 /********* Exit file *********/
@@ -97,9 +105,10 @@ static status_t CountLines(const char *str, const char *file_name)
 	file_ptr = fopen(file_name, "r");
 	if (FAIL == CheckFilePtr(file_ptr))
 	{
+		printf("%s is empty\n", file_name);
 		return FAIL;
 	}
-	
+
 	ch = fgetc(file_ptr);
 
 	while (EOF != ch)
@@ -114,9 +123,40 @@ static status_t CountLines(const char *str, const char *file_name)
 
 	printf("%s has %lu lines\n", file_name, count);
 
-	fclose(file_ptr);
+	return CheckReturnValue(fclose(file_ptr));
+}
 
-	return CheckFilePtr(file_ptr);
+/********* Write to header ******/
+static status_t WriteToHeader(const char *str, const char *file_name)
+{
+	FILE *file_ptr = NULL;
+	FILE *tmp_ptr = NULL;
+	char string[INPUT_STRING_SIZE]; 
+
+	assert(str);
+	assert(file_name);
+
+	tmp_ptr = fopen("tmp", "a+");
+	++str;
+	fputs(str, tmp_ptr);
+
+	file_ptr = fopen(file_name, "r");
+	while(fgets(string, INPUT_STRING_SIZE, file_ptr))
+	{
+		fputs(string, tmp_ptr);
+	}
+		
+	if (fclose(tmp_ptr) || fclose(file_ptr))
+	{
+		return FAIL;
+	}
+
+	if (remove(file_name) || rename("tmp", file_name))
+	{
+		return FAIL;
+	}
+
+	return SUCCESS;
 }
 
 /******** Run Log **********/
@@ -135,6 +175,12 @@ status_t RunLog(char *file_name, operation_t *opt_arr)
 		if (!fgets(user_input, INPUT_STRING_SIZE, stdin))
 		{
 			return FAIL;
+		}
+
+		if ('<' == user_input[0])
+		{
+			WriteToHeader(user_input, file_name);
+			append = 0;
 		}
 		
 		for (oper_index = 0; NUM_OF_OPER > oper_index; ++oper_index)
@@ -208,7 +254,6 @@ int main (int argc, char **argv)
 	{
 		printf("No file name has been entered\n");
 	}
-
 	
 	return 0;
 }
