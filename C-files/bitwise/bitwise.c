@@ -3,6 +3,8 @@
 
 #define INT_BITS ((sizeof(unsigned int) * 8))
 #define BITS_IN_BYTE 8
+#define BIT_5 16
+#define BIT_3 4 
 
 /******** Print Bits *****/
 void PrintBits(unsigned int num)
@@ -152,12 +154,94 @@ unsigned int AreEitherBits2And6On(unsigned int num)
 	return (num & 32) || (num & 2);
 }
 
+/******** Swaps bits 3 and 5 *****/
+unsigned int SwapBits3And5(unsigned int num)
+{
+	if (BIT_3 & num)
+	{
+		if (!(BIT_5 & num))
+		{
+			num ^= BIT_3;
+			num |= BIT_5;
+
+			return num;
+		}
+	}
+	
+	if (BIT_5 & num)
+	{
+		if (!(BIT_3 & num))
+		{
+			num ^= BIT_5;
+			num |= BIT_3;
+
+			return num;
+		}
+	}
+
+	return num;
+}
+
+/******* Closest smaller number divided by 16 *****/
+unsigned int ClosestNumDividedBy16(unsigned int num)
+{
+	return num & 0xfffffff0;
+}
+
+/******** Swap number ********/
+void SwapNums(unsigned int *num1, unsigned int *num2)
+{
+	*num1 ^= *num2;
+	*num2 ^= *num1;
+	*num1 ^= *num2;
+}
+
+/******** Count bits *******/
+size_t CountBitsWLoop(int num)
+{
+	int reference = 1;
+	unsigned int i = 0;
+	size_t count = 0;
+
+	for (i = 0; INT_BITS > i; ++i)
+	{
+		if (reference & num)
+		{
+			++count;
+		}
+		reference <<= 1;
+	}
+
+	return count;
+}
+
+unsigned int CountBitsRecursive(unsigned int num)
+{
+	if (!num)
+	{
+		return 0;
+	}
+	else
+	{
+		return (num & 1) + CountBitsRecursive(num >> 1);
+	}
+}
 
 int main ()
 {
-	unsigned int num = 8; 
+	float num1 = 5.3; 
+	int *ptr = (int *)&num1;
+	unsigned int num2 = 5;
+	unsigned int num3 = 10;
 
-	PrintBits(AreEitherBits2And6On(num));
+	PrintBits(*ptr);
+
+	printf("%d\n", CountBitsRecursive(*ptr));
+
+	SwapNums(&num2, &num3);
+	printf("num2 = %d\n", num2);
+	printf("num3 = %d\n", num3);
+	
 	
 	return 0;
 }
