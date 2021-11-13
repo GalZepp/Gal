@@ -1,3 +1,0 @@
-# Gal
-# Gal
-# Gal
