@@ -1,7 +1,1 @@
-*.out
-*.swo
-*.swp
-vim/Vim Masterclass/
-scripts/Linux course/
-output
-
+find*
