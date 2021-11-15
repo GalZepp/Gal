@@ -1,15 +1,33 @@
 #!/bin/bash
 
-if [ -z "$1" ]
-then 
+# Explanation on how to use the script
+explanation="Please enter value one after the other.
+Date in the format of yymmdd, activity in MBq and volume in ml as follows: 
+computeRoi 200516 94 10867"
+
+if [ $# -eq 0 ]; then 
+	# Default values of source
 	activity=94
 	volume=10867
 	manufacture_date=$(date +%s -d 200516)
-	printf "No values entered. \nUsing default values for computing ROI.\nManufacturing date is 16/05/2020\n\n"
+	printf "No values entered. \nUsing default values for computing ROI.\n\nManufacturing date is 16/05/2020\n"
+
+elif [ $# -gt 0 ] && [ -z "$3" ]; then 
+	# If not enough values entered for calculation 
+	printf "Some values are missing for calculation of ROI.\n"
+	printf $explanation
+	exit
+
+elif [ $# -gt 3 ]; then 
+	# In case too many values are entered
+	printf "Too many values have been entered.\n"
+	exit
+else
+	# When all values are entered
+	activity=$2
+	volume=$3
 fi
 
-#activity=$2
-#volume=$3
 
 # Today's date in seconds
 current_date=$(date +%s -d $(date "+%y%m%d"))
