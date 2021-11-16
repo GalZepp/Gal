@@ -1,10 +1,15 @@
 #!/bin/bash
 
-# Explanation on how to use the script
-explanation="Please enter the source's values one after the other.
-Date in the following format - yymmdd, activity in MBq and volume in ml as follows: 
-computeRoi.sh 200516 94 10867"
+# Helps flag for the script
+if [ "$1" == '-h' ] || [ "$1" == '--help' ]; then
+	printf "This is a script for calculating ROIs.\nIf you do not enter any values, the ROI will be calculated according to a set of default values.\nYou can enter values in the following format: \ncomputeRoi.sh Date(yymmdd) Avtivity Volume.\nFor example: computeRoi.sh 200516 94 10678\nThe date in the example is 16-May-2020\n"
+	exit
+fi 
 
+# Send to help
+send_help="For more information on how to use the script, use -h or --help flags.\n"
+
+# The if statement checks the amount of arguments entered
 if [ $# -eq 0 ]; then 
 	# Default values of source
 	activity=94
@@ -14,27 +19,26 @@ if [ $# -eq 0 ]; then
 
 elif [ $# -gt 0 ] && [ -z "$3" ]; then 
 	# If not enough values entered for calculation 
-	printf "Some values are missing for calculation of ROI.\n"
-	echo $explanation
+	printf "Some values are missing for calculation of ROI.\n\n"
+	printf "$send_help"
 	exit
 
 elif [ $# -gt 3 ]; then 
 	# In case too many values are entered
-	printf "Too many values have been entered.\n"
-	echo $explanation
+	printf "Too many values have been entered.\n\n"
+	printf "$send_help"
 	exit
 else
 	# When all values are entered
 	activity=$2
 	volume=$3
+	# Source manufacturing date in seconds from arguments
+	manufacture_date=$(date +%s -d $1)
 fi
 
 
 # Today's date in seconds
 current_date=$(date +%s -d $(date "+%y%m%d"))
-
-# Source manufacturing date in seconds
-#manufacture_date=$(date +%s -d $1)
 
 # Number of days between today and the source's manufacturing day
 day_diff=$(( $(( current_date - manufacture_date )) / 86400 )) 
