@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Explanation on how to use the script
-explanation="Please enter value one after the other.
-Date in the format of yymmdd, activity in MBq and volume in ml as follows: 
-computeRoi 200516 94 10867"
+explanation="Please enter the source's values one after the other.
+Date in the following format - yymmdd, activity in MBq and volume in ml as follows: 
+computeRoi.sh 200516 94 10867"
 
 if [ $# -eq 0 ]; then 
 	# Default values of source
@@ -15,12 +15,13 @@ if [ $# -eq 0 ]; then
 elif [ $# -gt 0 ] && [ -z "$3" ]; then 
 	# If not enough values entered for calculation 
 	printf "Some values are missing for calculation of ROI.\n"
-	printf $explanation
+	echo $explanation
 	exit
 
 elif [ $# -gt 3 ]; then 
 	# In case too many values are entered
 	printf "Too many values have been entered.\n"
+	echo $explanation
 	exit
 else
 	# When all values are entered
